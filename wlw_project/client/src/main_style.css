@@ -1,0 +1,203 @@
+/*
+    Datei   : main_style.css
+    Autor   : Herzog Cyril
+    Version : 1.0
+    Datum   : 10.06.2024
+
+*/
+
+
+/* Reset für das Grundlayout */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    transform: scale(0.90); /* Verkleinert das Layout um 8% */
+    transform-origin: top left; /* Legt den Ursprung der Transformation fest */
+}
+
+/* Container für das Grid-Layout */
+.container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Drei Spalten: zwei äußere für die Rahmen auf der linken und rechten Seite, eine für das Hintergrundbild in der Mitte */
+    grid-template-rows: auto 1fr auto; /* Drei Zeilen: automatische Höhe für den Titel, verbleibender Platz für den mittleren Bereich, automatische Höhe für den unteren Bereich */
+}
+
+/*****************************************************************************************************************************************************************************************
+/* Titelbereich */
+
+/* Titelname */
+.title {
+    grid-column: 1 / -1; /* Der Titel erstreckt sich über alle Spalten */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* FHNW Logo */
+.fhnw_logo {
+    position: absolute;
+    left: 20px;
+    height: 40px;
+    width: auto;
+}
+
+/* Verbindungsaufbau und Verbindungsstatus */
+.connection_status {
+    position: absolute;
+    right: 20px;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px; /* Abstand zum Text */
+}
+
+.connection_icon {
+    width: 60px;
+    height: 30px;
+}
+
+.connected {
+    background-color: green;
+}
+
+.disconnected {
+    background-color: red;
+}
+
+/*******************************************************************************************************************************************************************************************************
+
+/* Layout Rechts, Mitte, Links */
+.vertical_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Zusammenfassen aller io - Elementen */
+.group_layout {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%
+}
+
+/* Alle io - Elemente in Reihe */
+.horizontal_layout {
+    display: flex;
+    align-items: center; /* Vertikal zentrieren */
+}
+
+/* Panel Layout - Zusammenfassen aller Horizontalen Layouts  */
+.panel_layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Feste Breite für beide Layouts */
+    border: 1px solid #ccc;
+    background-color: #ffeb99; /* Gelblicher Hintergrund */
+    margin-top: 20px;
+    padding: 20px;
+    box-sizing: border-box; 
+}
+
+/**********************************************************************************************************************************************************************************************************
+/* IO - Elemente */
+
+.btn {
+    flex: 0 0 auto; /* Flex-Verhalten deaktivieren */
+    width: 100px; /* Feste Breite */
+    height: 30px; /* Feste Höhe */
+    margin-right: 10px; /* Abstand zum Textfeld */
+}
+
+.lamp {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.text {
+    flex: 1 1 auto; /* Flexibles Verhalten für das Textfeld */
+    height: 30px; /* Feste Höhe */
+    resize: none; /* Verhindert die Größenänderung des Textbereichs */
+    border: none; /* Rahmen des Textfeldes entfernen */
+}
+
+
+
+/* Grafiken */
+.overview_picture {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Das Bild wird in das Element eingepasst, ohne die Seitenverhältnisse zu ändern */
+}
+
+
+/**************************************************************************************************************************
+/* Spezial Textfelder */
+
+#delay_sim_help_text_id {
+    background-color: transparent; /* Macht den Hintergrund transparent */
+    overflow: hidden; /* Verhindert das Scrollen */
+    outline: none; /* Entfernt den Fokusrahmen */
+    font-family: inherit; /* Beibehaltung der Schriftart des umgebenden Textes */
+    font-size: inherit; /* Beibehaltung der Schriftgröße des umgebenden Textes */
+    color: inherit; /* Beibehaltung der Schriftfarbe des umgebenden Textes */
+}
+
+#generate_output_id, #result_output_id, #com_status_log_id, #trans_master_log_id, #trans_slave_log_id {
+    height: 70px;
+}
+
+
+
+/**************************************************************************************************************************
+/* Fusszeile */
+
+.footer {
+    grid-column: 1 / -1; /* Die Fusszeile erstreckt sich über alle Spalten */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.footer_right {
+    position: absolute;
+    left: 20px;
+    height: 30px;
+    width: auto;
+}
+
+.footer_left {
+    position: absolute;
+    width: auto;
+    height: 30px;
+    margin-left: 1100px; /* Abstand zum Text */
+}
+
+
+
+
+
+

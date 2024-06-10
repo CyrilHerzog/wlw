@@ -1,0 +1,164 @@
+<!--
+Datei   : main_window.html
+Autor   : Herzog Cyril
+Version : 1.0
+Datum   : 09.06.24
+
+Beschreibung
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMI - TestCore</title>
+    <link rel="stylesheet" href="main_style.css">
+</head>
+
+<!-- 
+Aufbau des folgenden Layoutes =>
+
+---------------------------------------------------
+Titel
+---------------------------------------------------
+Left-Layout     | Mid-Layout   | Right-Layout
+---------------------------------------------------
+Fusszeile
+---------------------------------------------------
+
+-->
+<body>
+    <div class="container">
+        <!-- Titel mit Logo und Verbindungsstatus -->
+        <div class="title">
+            <img src="graphics/fhnw_logo.png" alt="FHNW Logo" class="fhnw_logo">
+            LVDS - Kommunikation für Experimente mit gefangenen Ionen 
+            <div id="connection_status_id" class="connection_status" onclick="toggleConnection()">
+                <img src="graphics/ic_disconnect.png" alt="Connection Icon" id="connection_icon_id" class="connection_icon">
+            </div>
+        </div>
+        <!-- Linkes Layout -->
+        <div class="vertical_layout">
+            <!-- Kommunikations Layout (UART) -->
+            <fieldset class="panel_layout">
+                <legend>UART-Communication</legend>
+                <!-- UART Echo Test -->
+                <fieldset class="group_layout">
+                    <legend>Echo Check</legend>
+                    <div class="horizontal_layout">
+                        <button id="com_test_btn_id" class="btn" onclick="sendMessage('echo')">Test</button> 
+                        <textarea id="com_test_result_id" class="text" rows="1" cols="5" readonly></textarea>
+                    </div>
+                </fieldset> 
+                <!-- Uart Status Log -->
+                <fieldset class="group_layout">
+                    <legend>Status Log</legend>
+                    <div class="horizontal_layout">
+                        <button id="com_status_clr_btn_id" class="btn">Clear</button>
+                        <textarea id="com_status_log_id" class="text" rows="1" cols="5" readonly></textarea>
+                    </div>
+                </fieldset> 
+            </fieldset>
+
+            <!-- Input - Layout -->
+            <fieldset class="panel_layout">
+                <legend>Control Panel</legend>
+                <!-- Generator Layout-->
+                <fieldset class="group_layout">
+                    <legend>Data Generator</legend>
+                    <div class="horizontal_layout">
+                        <button id="generate_btn_id" class="btn" onclick="sendMessage('write')">Generate</button>
+                        <textarea id="generate_output_id" class="text" rows="4" cols="28" readonly></textarea>
+                    </div>
+                </fieldset>
+                <!-- Loop - Control Layout -->
+                <fieldset class="group_layout">
+                    <legend>Loop Control</legend>
+                    <div class="horizontal_layout">
+                    <select id="loop_ctrl_mode_select_id" class="btn">
+                        <option value="single">Single</option>
+                        <option value="continuous">Continuous</option>
+                    </select>
+                        <button class="btn" onclick="sendMessage('start')">Start</button>
+                        <button class="btn" onclick="sendMessage('stop')">Stop</button>
+                        <div class="lamp" id="loop_ctrl_status_id"></div>
+                    </div>
+                </fieldset>
+                <!-- Delay - Simulation Layout -->
+                <fieldset class="group_layout">
+                    <legend>Delay Simulation</legend>
+                    <div class="horizontal_layout">
+                        <button class="btn">Set</button>
+                        <input type="number" id="delay_sim_num_tabs_id" class="text" min="0" max="31"> <!-- Wertebereich ist 0 - 31-->
+                        <textarea id="delay_sim_help_text_id" class="text" rows="1" cols="1" readonly> 1 Tab = 56ps </textarea> <!-- Hilfetext-->
+                    </div>
+                </fieldset>
+            </fieldset>
+        </div>
+        <!-- Mittlerer Rahmen => Übersichtsbild-->
+        <div class="vertical_layout">
+            <img src="graphics/overview.png" alt="Overview Picture" class="overview_picture">
+        </div>
+        <div class="vertical_layout">
+            <!-- Kommunikations Layout (Transceiver) -->
+            <fieldset class="panel_layout">
+                <legend>Transceiver</legend>
+                <!-- Status Log Transceiver A (Source) -->
+                <fieldset class="group_layout">
+                    <legend>Status Log - Master</legend>
+                    <div class="horizontal_layout">
+                        <button id="trans_master_log_clr_btn_id" class="btn">Clear</button>
+                        <textarea id="trans_master_log_id" class="text" rows="1" cols="5" readonly></textarea>
+                    </div>
+                </fieldset>
+                <!-- Status Log Transceiver B (Sink) -->
+                <fieldset class="group_layout">
+                    <legend>Status Log - Slave</legend>
+                    <div class="horizontal_layout">
+                        <button id="trans_slave_log_clr_btn_id" class="btn">Clear</button>
+                        <textarea id="trans_slave_log_id" class="text" rows="1" cols="5" readonly></textarea>
+                    </div>
+                </fieldset> 
+            </fieldset> 
+
+            <!-- Result - Layout -->
+            <fieldset class="panel_layout">
+                <legend>Results</legend>
+                <!-- Datenprüfung -->
+                <fieldset class="group_layout">
+                    <legend>Data Checker</legend>
+                    <div class="horizontal_layout">
+                        <textarea id="result_output_id" class="text" rows="4" cols="28" readonly></textarea>
+                        <div class="lamp" id="loop_ctrl_status_id"></div>
+                    </div>
+                </fieldset>
+                <!-- Anzeigen der Zykluszeit -->
+                <fieldset class="group_layout">
+                    <legend>Cycle Time</legend>
+                    <div class="horizontal_layout">
+                        <textarea id="cycle_time_id" class="text" rows="1" cols="2" readonly></textarea>
+                    </div>
+                </fieldset>
+            </fieldset>
+        </div>
+        <!-- Fußzeile -->
+    <footer class="footer">
+        <div class="footer_right">
+            Herzog Cyril<br>
+            Version 1.0
+        </div>
+        <div class="footer_left">
+            <span id="current-time"></span><br>
+            <span id="current-date"></span>
+        </div>
+    </footer>
+    </div>
+    
+
+
+    <script src="script.js"></script> <!-- Verbindungsaufbau und Check mit Server -->
+    <script src="date_time.js"></script> <!-- Anzeigen und aktualisieren von Datum und Uhrzeit-->
+    
+</body>
+</html>
